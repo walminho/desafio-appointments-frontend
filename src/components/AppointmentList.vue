@@ -10,9 +10,20 @@
       {{ error }}
     </div>
     <ul v-else class="list-group">
-      <li v-for="appointment in appointments" :key="appointment.id" class="list-group-item">
-        {{ formatDate(appointment.startTime) }} - Dr. {{ appointment.doctor.name }}
-        <span :class="appointment.status === 'CONFIRMED' ? 'badge bg-success' : 'badge bg-secondary'">
+      <li
+        v-for="appointment in appointments"
+        :key="appointment.id"
+        class="list-group-item"
+      >
+        {{ formatDate(appointment.startTime) }} - Dr.
+        {{ appointment.doctor.name }}
+        <span
+          :class="
+            appointment.status === 'CONFIRMED'
+              ? 'badge bg-success'
+              : 'badge bg-secondary'
+          "
+        >
           {{ appointment.status }}
         </span>
       </li>
@@ -21,14 +32,14 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
 
 export default {
   data() {
     return {
       appointments: [],
       loading: false,
-      error: ''
+      error: "",
     };
   },
   mounted() {
@@ -38,20 +49,23 @@ export default {
     async fetchAppointments() {
       this.loading = true;
       try {
-        const response = await axios.get(`/patient/appointments?patientId=${this.$store.state.user.id}`);
+        const response = await axios.get(
+          `/patient/appointments?patientId=${this.$store.state.user.id}`
+        );
         this.appointments = response.data;
       } catch (error) {
-        this.error = error.response?.data?.message || 'Erro ao carregar agendamentos';
+        this.error =
+          error.response?.data?.message || "Erro ao carregar agendamentos";
       } finally {
         this.loading = false;
       }
     },
     formatDate(date) {
-      return new Date(date).toLocaleString('pt-BR', {
-        dateStyle: 'short',
-        timeStyle: 'short'
+      return new Date(date).toLocaleString("pt-BR", {
+        dateStyle: "short",
+        timeStyle: "short",
       });
-    }
-  }
+    },
+  },
 };
 </script>

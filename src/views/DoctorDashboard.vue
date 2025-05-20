@@ -7,20 +7,20 @@
 </template>
 
 <script>
-import AvailabilityForm from '../components/AvailabilityForm.vue';
-import AppointmentList from '../components/AppointmentList.vue';
+import AvailabilityForm from "../components/AvailabilityForm.vue";
+import AppointmentList from "../components/AppointmentList.vue";
 
 export default {
   components: {
     AvailabilityForm,
-    AppointmentList
+    AppointmentList,
   },
   beforeRouteEnter(to, from, next) {
-    if (store.getters.userRole !== 'DOCTOR') {
-      next('/login');
-    } else {
-      next();
-    }
-  }
+    next((vm) => {
+      if (vm.$store.getters.userRole !== "DOCTOR") {
+        vm.$router.push("/login");
+      }
+    });
+  },
 };
 </script>

@@ -7,21 +7,21 @@
 </template>
 
 <script>
-import AvailabilityList from '../components/AvailabilityList.vue';
-import AppointmentList from '../components/AppointmentList.vue';
-import store from '../store';
+import AvailabilityList from "../components/AvailabilityList.vue";
+import AppointmentList from "../components/AppointmentList.vue";
+import store from "../store";
 
 export default {
   components: {
     AvailabilityList,
-    AppointmentList
+    AppointmentList,
   },
   beforeRouteEnter(to, from, next) {
-    if (store.getters.userRole !== 'PATIENT') {
-      next('/login');
+    if (store.getters.userRole !== "PATIENT") {
+      next("/login");
     } else {
       next();
     }
-  }
+  },
 };
 </script>
